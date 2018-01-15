@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>practice 2</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.js"
+			  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+			  crossorigin="anonymous"></script>
+
+	<script>
+		$(document).ready(function(){
+			$("#name-id").on("keyup", function(e){
+				var value = $(this).val();
+				var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+				var whitespace = " \t\n\r";
+				if(value.indexOf(whitespace)!== (-1))
+				{
+					$("#valid-check-name").text("please remove the space in the beginning");
+				}
+				
+				if(format.test(value)){
+					$("#valid-check-name").text("enter valid text");
+					//$(this).css({"box-shadow": "2px 2px red", "border":"1px solid red"});
+				}
+				else
+				{
+					$("#valid-check-name").text("");
+				}
+
+			});
+			$("#number-id").on("keyup", function(e){
+				var value = $(this).val();
+				var format = /[0-9]/;
+				
+				if(!format.test(value)){
+					$("#valid-check-number").text("enter valid text");
+					//$(this).css({"box-shadow": "2px 2px red", "border":"1px solid red"});
+				}
+				else
+				{
+					$("#valid-check-number").text("");
+				}
+
+			});
+
+			$("#email-id").on("keyup", function(e){
+				var value = $(this).val();
+				var format = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+				
+				if(!format.test(value)){
+					$("#valid-check-email").text("enter valid text");
+					//$(this).css({"box-shadow": "2px 2px red", "border":"1px solid red"});
+				}
+				else
+				{
+					$("#valid-check-email").text("");
+				}
+
+			});
+			
+		});
+
+
+	</script>
+</head>
+<body>
+
+	<div class = 'container'>
+		<center class='col-sm-8 offset-2'>
+	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+		<div class = 'form-group'>
+			<label for = 'name'>Enter name:</label>
+			<input type = 'text' class = 'form-control' name = 'name' id='name-id'>
+			<p id="valid-check-name"></p>
+		</div>
+		<div class = 'form-group'>
+			<label for = 'number'>Enter number:</label>
+			<input type = 'text' class = 'form-control' name = 'number' id='number-id'>
+			<p id="valid-check-number"></p>
+		</div>
+		<div class = 'form-group'>
+			<label for = 'email'>Enter email:</label>
+			<input type = 'email' class = 'form-control' name = 'email' id='email-id'>
+			<p id="valid-check-email"></p>
+		</div>
+
+		<div class = 'form-group'>
+			<label for = 'password'>Enter password:</label>
+			<input type = 'password' class = 'form-control' name = 'pass'>
+		</div>
+		
+		<div class = 'form-group'>
+			<label for = 'password'>Re-enter password:</label>
+			<input type = 'password' class = 'form-control' name = 'pass'>
+		</div>
+	</form>
+</center>
+</div>
+
+<p id="valid-check"></p>
+
+<button id = 'butaxn'>Click for action</button>
+
+<div id = 'expdiv1'></div>
+
+<button type = 'submit' class = 'btn btn-danger' onclick="loadDoc()">Click me for fun</button>
+		
+		
+<script>
+	var but = document.getElementById("butaxn");
+	but.addEventListener("click", showAlert);
+	function showAlert()
+	{
+		alert("you did click me");
+	}
+
+	var para = document.createElement("p");
+	var node = document.createTextNode("this is new");
+	para.appendChild(node);
+
+	var element = document.getElementById("expdiv1");
+	element.appendChild(para);
+
+    function loadDoc()
+    {
+    	var xhttp = new XMLHttpRequest();
+    	xhttp.onreadystatechange = function(){
+    		if(this.readyState == 4 && this.status == 200){
+    			document.getElementById('expdiv1').innerHTML = this.responseText;
+
+    		}
+    	};
+
+    	xhttp.open("GET", "ajax_info.txt?fname=Henry&lname=Ford", true);
+    	xhttp.send();
+    }
+
+</script>		
+		
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>	
+</body>
+</html>
